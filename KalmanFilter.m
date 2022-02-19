@@ -26,7 +26,7 @@ Voc0 = 3.435;
 alp = 0.65;
 
 %
-%Simulation Data goes here
+%Some random test data I made
 %
 Samples = 100;
 actualSOC = ones(1, Samples);
@@ -41,6 +41,10 @@ for i = 1:Samples
 
 end
 
+
+%
+%Simulation Data goes here
+%
 %actualSOC = [0.3, 0.6, 0.5, 0.4, 0.5, 0.3, 0.6, 0.4]  %Actual SOC
 %V = [0.3, 0.6, 0.5, 0.4, 0.5, 0.3, 0.6, 0.4];         %Measured Voltage
 %I = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7];           %Measured Current
