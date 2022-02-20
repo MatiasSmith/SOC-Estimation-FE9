@@ -71,10 +71,10 @@ Qk1 = [2.5*10^(-7), 0; 0, 0];
 %
 % Initializing xhat and P (covariance matrix)
 %
-xhat = zeros(2, totalTime);                  
-xhat(1) = 1;
-P = zeros(2, 2, totalTime);
-P(1:2, 1:2, 1) = Rk * eye(2);       %P starts of as n 2x2 identity matricies
+arrayOfxhats = zeros(2, totalTime);                  
+arrayOfxhats(1) = 1;
+arrayOfPs = zeros(2, 2, totalTime);
+arrayOfPs(1:2, 1:2, 1) = Rk * eye(2);       %P starts of as n 2x2 identity matricies
 
 %--------------------------------------------------------------------------
 % At time k
@@ -106,7 +106,7 @@ fk = @(xhatk_1, I, dt, Cbat, Ccap, Rc) xhatk_1 + dt * [-I / Cbat; (I / Ccap)  - 
 % t: Time
 % totalTime
 for t = 1:totalTime-1                                            %Not sure if this I is offset
-    [xhat(:, t+1), P(:, :, t+1)] = EKF(xhat(:, t), P(:, :, t), I(t+1), I(t), V(t+1), Voc0, Rk, Aprime, Cprime, Eprime, Fprime, fk, dt, Cbat, Ccap, Rc, Qk1, yk, hk);
+    [arrayOfxhats(:, t+1), arrayOfPs(:, :, t+1)] = EKF(arrayOfxhats(:, t), arrayOfPs(:, :, t), I(t+1), I(t), V(t+1), Voc0, Rk, Aprime, Cprime, Eprime, Fprime, fk, dt, Cbat, Ccap, Rc, Qk1, yk, hk);
 
 end
 
@@ -114,7 +114,7 @@ end
 figure
 plot(timeSteps, actualSOC, 'DisplayName', "Actual SOC")
 hold on
-plot(timeSteps, xhat(1, :), 'DisplayName', "Extended Kalman Filter")
+plot(timeSteps, arrayOfxhats(1, :), 'DisplayName', "Extended Kalman Filter")
 %plot(t, SOCdr, 'DisplayName', "Open Loop")
 ylim = ([72-20, 72+20]);
 xlim([0, totalTime/10])
