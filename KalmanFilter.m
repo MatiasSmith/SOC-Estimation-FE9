@@ -34,7 +34,7 @@ V = ones(1, Samples);
 I = ones(1, Samples);
 timeSteps = ones(1, Samples);
 for i = 1:Samples
-    actualSOC(i) = actualSOC(i) * (sin(i) + 0.05*i + 0.3*sin(10*i));
+    actualSOC(i) = actualSOC(i) * (sin(i) - 1*i^0.8 + 0.3*sin(10*i));
     V(i) = V(i) * (sin(i) + 0.05*i + 0.3*sin(5*i));
     I(i) = I(i) * (sin(i) + 0.05*i + 0.5*sin(2*i));
     timeSteps(i) = i*0.1
@@ -136,7 +136,7 @@ function [xhatCorrected, PCorrected] = EKF(xhatk_1, Pk_1, I, Ik_1 , V, Voc0, Rk,
     P = Aprime * Pk_1 * Aprime.' + Eprime * Qk1 * Eprime.';
     Lk = P * Cprime.' * (Cprime * P * Cprime.' + Rk)^-1;
     xhatCorrected = xhat + Lk * (yk(V, Voc0) - hk(xhat, I, Voc0));
-    PCorrected = P - Lk * Cprime * Pk_1;
+    PCorrected = P - Lk * Cprime * P;
 end
 
 
