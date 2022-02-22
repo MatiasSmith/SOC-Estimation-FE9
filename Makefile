@@ -1,0 +1,13 @@
+CC = gcc
+CFLAGS  = -O1 -Wall -Werror -lm -Wno-unused-result
+
+TARGET = SOC_data_sim
+
+all: $(TARGET)
+
+$(TARGET): $(TARGET).c
+	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).c
+
+clean:
+	$(RM) $(TARGET)
+
