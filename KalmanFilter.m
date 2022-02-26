@@ -1,7 +1,7 @@
 
 clc;
-clear;
-close all;
+%clear;
+%close all;
 %formatlatex
 format longG
 warning('off',  'all')
@@ -19,36 +19,35 @@ warning('on',  'all')
 % T = (value);
 dt = 1;   %Sampling Period
 R0 = 0.01;
-Rc = 0.015;
-Ccap = 2400;
-Cbat = 18000;
+Rc = 150;        %0.015;
+Ccap = 0.15;     %2400;
+Cbat = 1;        %18000;
 Voc0 = 3.435;
 alp = 0.65;
 
 %
 %Some random test data I made
 %
-Samples = 100;
-actualSOC = ones(1, Samples);
-V = ones(1, Samples);
-I = ones(1, Samples);
-timeSteps = ones(1, Samples);
-for i = 1:Samples
-    actualSOC(i) = actualSOC(i) * (sin(i) - 1*i^0.8 + 0.3*sin(10*i));
-    V(i) = V(i) * (sin(i) + 0.05*i + 0.3*sin(5*i));
-    I(i) = I(i) * (sin(i) + 0.05*i + 0.5*sin(2*i));
-    timeSteps(i) = i*0.1
+%Samples = 100;
+%actualSOC = ones(1, Samples);
+%V = ones(1, Samples);
+%I = ones(1, Samples);
+%timeSteps = ones(1, Samples);
+%for i = 1:Samples
+%    actualSOC(i) = actualSOC(i) * (sin(i) - 1*i^0.8 + 0.3*sin(10*i));
+%    V(i) = V(i) * (sin(i) + 0.05*i + 0.3*sin(5*i));
+%    I(i) = I(i) * (sin(i) + 0.05*i + 0.5*sin(2*i));
+%    timeSteps(i) = i*0.1
 
-end
-
+%end
 
 %
 %Simulation Data goes here
 %
-%actualSOC = [0.3, 0.6, 0.5, 0.4, 0.5, 0.3, 0.6, 0.4]  %Actual SOC
-%V = [0.3, 0.6, 0.5, 0.4, 0.5, 0.3, 0.6, 0.4];         %Measured Voltage
-%I = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7];           %Measured Current
-%timeSteps = [0:0.1:length(I)];                            %Time
+actualSOC = VarName2.';                  %[0.3, 0.6, 0.5, 0.4, 0.5, 0.3, 0.6, 0.4]  %Actual SOC
+V = VarName3.';                          %[0.3, 0.6, 0.5, 0.4, 0.5, 0.3, 0.6, 0.4];         %Measured Voltage
+I = VarName4.';                          %Measured Current
+timeSteps = VarName1.';                  %Time
 totalTime = length(timeSteps);
 
 %xhatk_1 = [SOC; Vc];
